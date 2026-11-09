@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Smart Classroom L-419 Telemetry",
+  "description": "Contrato versionado de telemetr\u00eda del nodo ESP32 del laboratorio L-419.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "device_id",
+    "sequence",
+    "uptime_ms",
+    "timestamp_utc",
+    "environment",
+    "air_quality",
+    "acoustic",
+    "illumination",
+    "occupancy",
+    "thermal",
+    "connectivity"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "device_id": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "uptime_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "timestamp_utc": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "model",
+        "temperature_c",
+        "humidity_pct",
+        "pressure_hpa"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "string"
+        },
+        "temperature_c": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "humidity_pct": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "pressure_hpa": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "air_quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "model",
+        "co2_ppm"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "string"
+        },
+        "co2_ppm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "acoustic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "model",
+        "rms",
+        "sound_level_db"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "string"
+        },
+        "rms": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "sound_level_db": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "illumination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "model",
+        "illuminance_lux"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "string"
+        },
+        "illuminance_lux": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "occupancy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "model",
+        "presence_detected",
+        "estimated_people"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "string"
+        },
+        "presence_detected": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "estimated_people": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "thermal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "frame_valid",
+        "width",
+        "height",
+        "center_temp_c",
+        "mean_temp_c",
+        "min_temp_c",
+        "max_temp_c",
+        "frame_tenths_c"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "frame_valid": {
+          "type": "boolean"
+        },
+        "width": {
+          "const": 32
+        },
+        "height": {
+          "const": 24
+        },
+        "center_temp_c": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mean_temp_c": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "min_temp_c": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "max_temp_c": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "frame_tenths_c": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "minItems": 768,
+              "maxItems": 768
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "connectivity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "wifi_connected",
+        "rssi_dbm"
+      ],
+      "properties": {
+        "wifi_connected": {
+          "type": "boolean"
+        },
+        "rssi_dbm": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
